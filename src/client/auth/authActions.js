@@ -2,9 +2,9 @@ import Cookie from 'js-cookie';
 import { createAction } from 'redux-actions';
 import { getAuthenticatedUserName, getIsAuthenticated, getIsLoaded } from '../reducers';
 import { createAsyncActionType } from '../helpers/stateHelpers';
-import { addNewNotification } from '../app/appActions';
+// import { addNewNotification } from '../app/appActions';
 import { getFollowing } from '../user/userActions';
-import { BUSY_API_TYPES } from '../../common/constants/notifications';
+// import { BUSY_API_TYPES } from '../../common/constants/notifications';
 import { getMetadata } from '../helpers/metadata';
 
 export const LOGIN = '@auth/LOGIN';
@@ -77,21 +77,21 @@ export const getUpdatedSCUserMetadata = () => dispatch =>
     },
   });
 
-export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
-  const accessToken = Cookie.get('access_token');
+export const busyLogin = () => (dispatch, getState) => {
+  // const accessToken = Cookie.get('access_token');
   const state = getState();
 
   if (!getIsAuthenticated(state)) {
     return dispatch({ type: BUSY_LOGIN.ERROR });
   }
 
-  busyAPI.subscribe((response, message) => {
-    const type = message && message.type;
+  // busyAPI.subscribe((response, message) => {
+  //   const type = message && message.type;
 
-    if (type === BUSY_API_TYPES.notification && message.notification) {
-      dispatch(addNewNotification(message.notification));
-    }
-  });
+  //   if (type === BUSY_API_TYPES.notification && message.notification) {
+  //     dispatch(addNewNotification(message.notification));
+  //   }
+  // });
 
   const targetUsername = getAuthenticatedUserName(state);
 
@@ -99,7 +99,7 @@ export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
     type: BUSY_LOGIN.ACTION,
     meta: targetUsername,
     payload: {
-      promise: busyAPI.sendAsync('login', [accessToken]),
+      promise: [],
     },
   });
 };

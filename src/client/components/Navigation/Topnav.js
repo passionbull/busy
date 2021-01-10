@@ -296,14 +296,18 @@ class Topnav extends React.Component {
 
   handleSearchForInput(event) {
     const value = event.target.value;
+    const { location } = this.props;
+    const userName = location.pathname.split('@')[1].split('/')[0];
+    console.log('userName', userName);
+    console.log('search', value);
     this.hideAutoCompleteDropdown();
-    this.props.history.push({
-      pathname: '/search',
-      search: `q=${value}`,
-      state: {
-        query: value,
-      },
-    });
+    // this.props.history.push({
+    //   pathname: '/search',
+    //   search: `q=${value}`,
+    //   state: {
+    //     query: value,
+    //   },
+    // });
   }
 
   debouncedSearch = _.debounce(value => this.props.searchAutoComplete(value), 300);
